@@ -5,3 +5,4 @@ RUN apt update
 RUN apt install -y build-essential
 RUN make
 CMD ["./demo"]
+EXPOSE 5000
