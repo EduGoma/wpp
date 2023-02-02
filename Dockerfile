@@ -1,9 +1,12 @@
 FROM debian:11.6-slim AS builder
 WORKDIR /opt/wpp
-RUN apt-get update
-RUN apt-get install -y build-essential
 COPY . .
-RUN make
+RUN apt-get update \
+    && apt-get install -y build-essential \
+    && make \
+    && apt-get purge -y build-essential \
+    && apt-get -y autoremove \
+    && apt-get clean 
 
 FROM debian:11.6-slim AS runtime
 CMD ["./demo"]
